@@ -1,12 +1,13 @@
 {
-  "name": "pawhome-server",
+  "name": "pethome-server",
   "version": "1.0.0",
   "description": "Pet Adoption Platform API — MERN assignment backend",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seed": "node scripts/seed.js"
   },
   "keywords": ["pet-adoption", "mern", "express", "mongodb"],
   "author": "",

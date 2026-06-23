@@ -37,7 +37,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
-  res.json({ success: true, message: 'PawHome Pet Adoption API is running.' });
+  res.json({ success: true, message: 'PetHome Pet Adoption API is running.' });
 });
 
 app.use('/api/auth', authRoutes);

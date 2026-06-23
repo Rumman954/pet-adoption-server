@@ -1,4 +1,4 @@
-# PawHome — Server (Pet Adoption API)
+# PetHome — Server (Pet Adoption API)
 
 Express + MongoDB backend with JWT authentication via HTTP-only cookies.
 
