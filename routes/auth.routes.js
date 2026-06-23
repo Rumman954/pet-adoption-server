@@ -68,12 +68,13 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid email or password.' });
     }
 
-    setTokenCookie(res, { id: user._id, email: user.email, name: user.name, photoURL: user.photoURL });
+    const token = setTokenCookie(res, { id: user._id, email: user.email, name: user.name, photoURL: user.photoURL });
 
     res.json({
       success: true,
       message: 'Login successful.',
       user: { name: user.name, email: user.email, photoURL: user.photoURL },
+      token,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -102,12 +103,13 @@ router.post('/google', async (req, res) => {
       await user.save();
     }
 
-    setTokenCookie(res, { id: user._id, email: user.email, name: user.name, photoURL: user.photoURL });
+    const token = setTokenCookie(res, { id: user._id, email: user.email, name: user.name, photoURL: user.photoURL });
 
     res.json({
       success: true,
       message: 'Google login successful.',
       user: { name: user.name, email: user.email, photoURL: user.photoURL },
+      token,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

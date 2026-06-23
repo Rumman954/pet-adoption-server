@@ -14,6 +14,15 @@ router.get('/my-requests', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/incoming', verifyToken, async (req, res) => {
+  try {
+    const requests = await AdoptionRequest.find({ ownerEmail: req.user.email }).sort({ createdAt: -1 });
+    res.json({ success: true, requests });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 router.get('/pet/:petId', verifyToken, async (req, res) => {
   try {
     const pet = await Pet.findById(req.params.petId);

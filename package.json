@@ -6,10 +6,15 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "node scripts/free-port.js && nodemon index.js",
     "seed": "node scripts/seed.js"
   },
-  "keywords": ["pet-adoption", "mern", "express", "mongodb"],
+  "keywords": [
+    "pet-adoption",
+    "mern",
+    "express",
+    "mongodb"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,6 +27,7 @@
     "mongoose": "^8.9.3"
   },
   "devDependencies": {
+    "kill-port": "^2.0.1",
     "nodemon": "^3.1.9"
   }
 }
