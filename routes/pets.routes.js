@@ -16,7 +16,11 @@ router.get('/', async (req, res) => {
 
     if (species) {
       const speciesList = species.split(',').map((s) => s.trim());
-      filter.species = { $in: speciesList };
+      if (speciesList.includes('Others')) {
+        filter.species = { $in: ['Others', 'Other', 'Rabbit', 'Fish'] };
+      } else {
+        filter.species = { $in: speciesList };
+      }
     }
 
     let sortOption = { createdAt: -1 };

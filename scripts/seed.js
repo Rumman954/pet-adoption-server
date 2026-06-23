@@ -86,7 +86,7 @@ const samplePets = [
   },
   {
     name: 'Cotton',
-    species: 'Rabbit',
+    species: 'Others',
     breed: 'Holland Lop',
     age: '1 year',
     gender: 'Female',
@@ -114,7 +114,7 @@ const samplePets = [
   },
   {
     name: 'Bubbles',
-    species: 'Fish',
+    species: 'Others',
     breed: 'Goldfish',
     age: '8 months',
     gender: 'Female',
