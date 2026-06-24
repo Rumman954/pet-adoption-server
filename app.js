@@ -8,36 +8,44 @@ import adoptionsRoutes from './routes/adoptions.routes.js';
 
 const app = express();
 
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Database connection failed.' });
-  }
-});
-
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-].filter(Boolean);
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || process.env.VERCEL) {
-        callback(null, true);
-      } else {
-        callback(null, true);
-      }
-    },
+    origin: true,
     credentials: true,
   })
 );
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.get('/api/health', (req, res) => {
+  res.json({
+    success: true,
+    mongoConfigured: Boolean(process.env.MONGODB_URI),
+    jwtConfigured: Boolean(process.env.JWT_SECRET),
+    nodeEnv: process.env.NODE_ENV || 'not set',
+  });
+});
+
+app.use(async (req, res, next) => {
+  if (!process.env.MONGODB_URI) {
+    return res.status(500).json({
+      success: false,
+      message: 'MONGODB_URI is not set on Vercel. Add it in Environment Variables and redeploy.',
+    });
+  }
+
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Database connection failed.',
+      detail: process.env.NODE_ENV === 'production' ? undefined : error.message,
+    });
+  }
+});
 
 app.get('/api', (req, res) => {
   res.json({ success: true, message: 'PetHome Pet Adoption API is running.' });
